@@ -1,0 +1,26 @@
+.body{
+    justify-content: center;
+    align-content: center;
+}
+
+.login{
+    margin-top: 3rem;
+    max-width: 25rem;
+}
+
+.options{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.registrar{
+    margin-left: 1rem;
+    margin-top: 1.2rem;
+}
+
+.login_title{
+    text-align: center;
+    justify-self: center;
+    margin-bottom: 2rem;
+}

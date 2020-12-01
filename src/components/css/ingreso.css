@@ -1,0 +1,54 @@
+.formRow{
+    justify-self: center;
+    justify-content: center;
+}
+
+.form_group{
+    border: solid 0.1rem;
+    border-color: black;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.textarea{
+    max-height: 10rem;
+    width: 100%;
+}
+
+.composite{
+    margin-top: 2rem;
+}
+
+.bar{
+    height: 2px;
+    background-color: black;
+}
+
+.btn{
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.div_table{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.composite_table , .table_head, .table_col{
+    border: black 1px solid;
+}
+
+.table_head{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.table_col{
+    padding: 2rem;
+}
+
+h4{
+    font-size: 1em;
+}

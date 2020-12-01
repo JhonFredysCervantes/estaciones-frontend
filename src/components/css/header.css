@@ -1,0 +1,10 @@
+.navbar{
+    display: flex;
+    height: 5rem;
+}
+
+.user{
+    display: flex;
+    float: right;
+    margin-left: 75%;
+}
