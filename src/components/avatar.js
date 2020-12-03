@@ -17,20 +17,10 @@ class Avatar extends React.Component{
     render(){
         return(
             <div className="user">
-                <p className="navbar-text">{this.state.name}</p>
-                <a href="-#" 
-                    className="nav-link dropdown-toggle" 
-                    id="navbarDropdownMenuLink" 
-                    role="button" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="true">
-                    <img src={this.state.photo} alt="userphoto" />
+                <a href="/usuario">
+                    Texto para rellenar
                 </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a className="dropdown-item" href="-#">Ver perfil</a>
-                    <a className="dropdown-item" href="-#">Salir</a>
-                </div>
+                <img src={this.state.photo} alt="userphoto" />
             </div>
         );
     }

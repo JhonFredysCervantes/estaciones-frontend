@@ -7,6 +7,7 @@ class Ingreso extends React.Component{
         super(props);
 
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.fieldClear = this.fieldClear.bind(this);
         this.handleType = this.handleType.bind(this);
 
         this.state = {
@@ -17,7 +18,7 @@ class Ingreso extends React.Component{
             lon : undefined,
             unidad : "",
 
-            tipo : 'S',
+            tipo : '',
             area : undefined,
             lat_parcela : undefined,
             lon_parcela : undefined,
@@ -50,10 +51,11 @@ class Ingreso extends React.Component{
     }
 
     handleType(e){
-        this.setState({tipo : e.target.value});
+        this.setState({tipo : e});
     }
 
     fieldClear(){
+        console.log( "paso algo");
         this.setState({
             nombre : "",
             descripcion : "",
@@ -62,7 +64,7 @@ class Ingreso extends React.Component{
             lon : undefined,
             unidad : "",
 
-            tipo : 'S',
+            tipo : '',
             area : undefined,
             lat_parcela : undefined,
             lon_parcela : undefined,
@@ -81,7 +83,7 @@ class Ingreso extends React.Component{
                             <label for="name">Nombre estaci&oacute;n</label>
                             <input className="form-control" type="text" placeholder="Ingrese un nombre"></input>
 
-                            <label for="description">Descripción</label>
+                            <label>Descripción</label>
                             <textarea className="textarea form-control" rows="3"></textarea>
 
                         </div>
@@ -116,20 +118,19 @@ class Ingreso extends React.Component{
 
                             <fieldset className="form-group">
                                 <div className="row">
-                                    <legend className="col-form-label col-sm-2 pt-0" type>Radios</legend>
+                                    <legend className="col-form-label col-sm-2 pt-0">Radios</legend>
                                     <div className="col-sm-10">
-                                        <div className="form-check">
-                                            <input className="form-check-input" 
-                                                    type="radio" value='S' name="tipo"  
-                                                    onClick={this.state.handleType} />
-                                            <label className="form-check-label">
+                                        <div className="form-check" onClick={()=>this.handleType('S')}>
+                                            <input className="form-check-input" id="radioSample"
+                                                    type="radio" value='S' name="tipo"/>
+                                            <label className="form-check-label" htmlFor="radioSample">
                                                 Simple
                                             </label>
                                         </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="tipo"
-                                                    value='C' onClick={this.state.handleType} />
-                                            <label className="form-check-label">
+                                        <div className="form-check" onClick={()=>this.handleType('C')}>
+                                            <input className="form-check-input" type="radio" id="radioComposite"
+                                                    name="tipo" value='C'/>
+                                            <label className="form-check-label" htmlFor ="radioComposite">
                                                 Compuesto
                                             </label>
                                         </div>
@@ -142,7 +143,7 @@ class Ingreso extends React.Component{
                                 <input className="form-control" type="number" step="any" min="0" placeholder="En m^2"></input>
                             </div>
 
-                            <div className="composite" id="composite" >
+                            <div className="composite" id="composite" hidden={this.state.tipo==='C'?false:true} >
                                 <h4>Parcela</h4>
                                 <hr className="bar" />
 
@@ -155,7 +156,7 @@ class Ingreso extends React.Component{
                                 <label >Descripción</label>
                                 <textarea className="textarea" rows="3"></textarea> 
 
-                                <button type="button" class="btn btn-primary">Agregar</button>
+                                <button type="button" className="btn btn-primary">Agregar</button>
 
                                 <div className="div_table">
                                     <table className="composite_table">
@@ -181,8 +182,8 @@ class Ingreso extends React.Component{
 
                         </div>
 
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="reset" class="btn btn-danger">Limpiar</button>
+                        <button type="submit" className="btn btn-success">Guardar</button>
+                        <button type="reset" className="btn btn-danger" onClick={this.fieldClear}>Limpiar</button>
 
                     </form>
                 </div>

@@ -1,0 +1,14 @@
+.userInformation{
+    justify-content: center;
+    justify-self: center;
+}
+
+h2{
+    display: block;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.form-group{
+    justify-content: center;
+}

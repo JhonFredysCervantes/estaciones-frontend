@@ -48,7 +48,7 @@ class Login extends React.Component{
                         
                         <div className="options">
                             <button type="submit" className="btn btn-primary">Ingresar</button>
-                            <div className="registrar"><a href="-#">Registrarme</a></div>
+                            <div className="registrar"><a href="/registro">Registrarme</a></div>
                         </div>
                     </form>
                 </div>

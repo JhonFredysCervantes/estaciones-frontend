@@ -1,7 +1,8 @@
-.user p {
+.user a {
     align-self: center;
     color: white;
     font-weight: bold;
+    margin-right: 1rem;
 }
 
 .user img {

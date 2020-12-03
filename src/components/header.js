@@ -23,8 +23,8 @@ class Header extends React.Component{
                                     <a className="nav-link" href="/map">Mapa</a>
                                 </li>
                             </ul>
-                            <Avatar></Avatar>
                         </div>
+                        <Avatar></Avatar>
                     </nav>
                 </div>
             </div>
