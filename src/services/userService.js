@@ -3,15 +3,23 @@ import http from './../http-common';
 class RequestUser{
     
     createUser(data){
-        return http.post("/crear/usuario",data);
+        return http.post("/usuario/crear",data);
     }
 
     updateUser(data, id){
-        return http.put("/actualizar/usuario/"+id,data);
+        return http.put("/usuario/editar/"+id,data);
     }
 
     deleteteUser(id){
-        return http.delete("/eliminar/usuario/"+id);
+        return http.delete("/usuario/eliminar/"+id);
+    }
+
+    getUsers(){
+        return http.get("/usuario/listarusuarios");
+    }
+
+    getUser(id){
+        return http.get("/usuario/obtener/"+id);
     }
 
 }

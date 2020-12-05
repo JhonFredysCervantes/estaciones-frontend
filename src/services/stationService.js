@@ -3,15 +3,23 @@ import http from './../http-common';
 class RequestStation{
     
     createStation(data){
-        return http.post("/crear/estacion",data);
+        return http.post("/estacion/crear",data);
     }
 
     updateStation(data, id){
-        return http.put("/actualizar/estacion/"+id,data);
+        return http.put("/estacion/editar/"+id,data);
     }
 
     deleteStation(id){
-        return http.delete("/eliminar/estacion/"+id);
+        return http.delete("/estacion/eliminar/"+id);
+    }
+
+    getStation(id){
+        return http.get("/estacion/obtener/"+id);
+    }
+
+    getStations(){
+        return http.get("/estacion/listarestaciones");
     }
 
 }
