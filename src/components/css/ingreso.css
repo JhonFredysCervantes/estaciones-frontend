@@ -10,6 +10,11 @@
     padding: 2rem;
 }
 
+.form-check{
+    width: min-content;
+    height: auto;
+}
+
 .textarea{
     max-height: 10rem;
     width: 100%;

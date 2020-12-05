@@ -5,12 +5,10 @@ import Login from './components/pages/login';
 import Ingreso from './components/pages/ingreso';
 import Mapa from './components/pages/mapa';
 import EditUser from './components/pages/editUser';
+import RegisterUser from './components/pages/registerUser';
 
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RegisterUser from './components/pages/registerUser';
-
-
 
 
 function App() {

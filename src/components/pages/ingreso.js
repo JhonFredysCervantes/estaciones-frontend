@@ -75,6 +75,7 @@ class Ingreso extends React.Component{
     render(){
         return(
             <div className="row formRow">
+
                 <div className="col-md-8 col-sm-12">
                     <form>
                         <div className="form_group generalInformation">
