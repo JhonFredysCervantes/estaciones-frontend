@@ -16,7 +16,7 @@ class Avatar extends React.Component{
 
     render(){
         return(
-            <div className="user">
+            <div className="user" id="userAvatar">
                 <a href="/usuario">
                     Texto para rellenar
                 </a>

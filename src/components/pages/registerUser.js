@@ -1,5 +1,7 @@
 import React from 'react';
 
+import RequestUser from "./../../services/userService";
+
 import './../css/registerUser.css';
 
 class RegisterUser extends React.Component{
@@ -7,6 +9,7 @@ class RegisterUser extends React.Component{
         super(props);
 
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleSaveUser = this.handleSaveUser.bind(this);
 
         this.state={
             name : "",
@@ -20,6 +23,29 @@ class RegisterUser extends React.Component{
         this.setState({
             [e.target.name] : e.target.value
         });
+    }
+
+    handleSaveUser(){
+        var user = {
+            primerNombre : this.state.name,
+            primerApellido : this.state.lastname,
+            email : this.state.email,
+            password : this.state.password
+        };
+
+        if(this.state.password.length<=1){
+            alert("Lo sentimos, la contraseña debe tener por lo menos 2 caracteres");
+        }else{
+            RequestUser.createUser(user).then(response =>{
+                this.setState({
+                    name : this.response.primerNombre,
+                    lastname : this.response.primerApellido,
+                    email : this.response.email
+                });
+            }).catch(e =>{
+                console.log(e);
+            });
+        }
     }
 
     render(){
@@ -38,7 +64,9 @@ class RegisterUser extends React.Component{
                                 class="form-control" 
                                 name="name" 
                                 value={this.state.name} 
-                                onChange={this.handleOnChange}/>
+                                onChange={this.handleOnChange}
+                                required
+                                />
                         </div>
 
                         <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
@@ -49,6 +77,7 @@ class RegisterUser extends React.Component{
                                 name="lastname" 
                                 value={this.state.lastname}
                                 onChange={this.handleOnChange}
+                                required
                                 />
                         </div>
 
@@ -60,6 +89,7 @@ class RegisterUser extends React.Component{
                                 name="email" 
                                 value={this.state.email}
                                 onChange={this.handleOnChange}
+                                required
                                 />
                         </div>
 
@@ -71,9 +101,10 @@ class RegisterUser extends React.Component{
                                 name="password" 
                                 value={this.state.password}
                                 onChange={this.handleOnChange}
+                                required
                                 />
                         </div>
-                        <button className="btn btn-primary" type="submit">Registrar</button>
+                        <button className="btn btn-primary" type="submit" onClick={this.handleSaveUser}>Registrar</button>
                     </form>
 
                 </div>

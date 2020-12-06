@@ -9,6 +9,7 @@ class Ingreso extends React.Component{
         this.handleOnChange = this.handleOnChange.bind(this);
         this.fieldClear = this.fieldClear.bind(this);
         this.handleType = this.handleType.bind(this);
+        this.handlePlot = this.handlePlot.bind(this);
 
         this.state = {
             nombre : "",
@@ -22,8 +23,7 @@ class Ingreso extends React.Component{
             area : undefined,
             lat_parcela : undefined,
             lon_parcela : undefined,
-            descripcion_parcela : ""
-
+            descripcion_parcela : "",
         }
     }
 
@@ -44,10 +44,23 @@ class Ingreso extends React.Component{
         var sample = {
             tipo : this.state.tipo,
             area : this.state.area,
+        };
+
+        var plot = {
+            area : this.state.area,
             lat : this.state.lat_parcela,
             lon : this.state.lon_parcela,
             descripcion : this.state.descripcion_parcela
         };
+    }
+
+    handlePlot(){
+
+        var pArea = document.getElementById("pArea").value;
+        var pLat = document.getElementById("pLat").value;
+        var pLon = document.getElementById("pLon").value;
+        var pDescrip = document.getElementById("pDescrip").value;
+
     }
 
     handleType(e){
@@ -55,7 +68,6 @@ class Ingreso extends React.Component{
     }
 
     fieldClear(){
-        console.log( "paso algo");
         this.setState({
             nombre : "",
             descripcion : "",
@@ -90,13 +102,13 @@ class Ingreso extends React.Component{
                         </div>
 
                         <div className="form_group spaceInformation">
-                            <h4>Información Espacial</h4>
+                            <h4>Informaci&oacute;n Espacial</h4>
 
-                            <label >Región</label>
+                            <label >Regi&oacute;n</label>
                             <select className="form-control">
-                                <option>Region Caribe</option>
-                                <option>Region Insular</option>
-                                <option>Region Pasifica</option>
+                                <option>Regi&oacute;n Caribe</option>
+                                <option>Regi&oacute;n Insular</option>
+                                <option>Regi&oacute;n Pasifica</option>
                             </select>
 
                             <label >Latitud</label>
@@ -115,7 +127,7 @@ class Ingreso extends React.Component{
                         </div>
 
                         <div className="form_group sampleInformation">
-                            <h4>Información Muestreo</h4>
+                            <h4>Informaci&oacute;n Muestreo</h4>
 
                             <fieldset className="form-group">
                                 <div className="row">
@@ -140,7 +152,7 @@ class Ingreso extends React.Component{
                             </fieldset>
 
                             <div className="sample">
-                                <label >Area</label>
+                                <label >&Aacute;rea</label>
                                 <input className="form-control" type="number" step="any" min="0" placeholder="En m^2"></input>
                             </div>
 
@@ -148,14 +160,17 @@ class Ingreso extends React.Component{
                                 <h4>Parcela</h4>
                                 <hr className="bar" />
 
+                                <label >&Aacute;rea</label>
+                                <input className="form-control" id="pArea" type="number" step="any" min="1" placeholder="m^2"></input>
+
                                 <label >Latitud</label>
-                                <input className="form-control" type="number" step="any" min="1" placeholder="Lat"></input>
+                                <input className="form-control" id="pLat" type="number" step="any" min="1" placeholder="Lat"></input>
 
                                 <label >Longitud</label>
-                                <input className="form-control" type="number" step="any" min="1" placeholder="Lon"></input>
+                                <input className="form-control" id="pLon"type="number" step="any" min="1" placeholder="Lon"></input>
 
-                                <label >Descripción</label>
-                                <textarea className="textarea" rows="3"></textarea> 
+                                <label >Descripci&oacute;n</label>
+                                <textarea className="textarea" id="pDescrip" rows="3"></textarea> 
 
                                 <button type="button" className="btn btn-primary">Agregar</button>
 
@@ -164,8 +179,8 @@ class Ingreso extends React.Component{
                                         <thead>
                                             <th className="table_head">Lat</th>
                                             <th className="table_head">Lon</th>
-                                            <th className="table_head">Área</th>
-                                            <th className="table_head">Descripción</th>
+                                            <th className="table_head">&Aacute;rea</th>
+                                            <th className="table_head">Descripci&oacute;n</th>
                                             <th className="table_head">Opcion</th>
                                         </thead>
 
