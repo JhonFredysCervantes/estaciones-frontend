@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../header';
 
 import RequestUser from "./../../services/userService";
 
@@ -50,65 +51,71 @@ class RegisterUser extends React.Component{
 
     render(){
         return(
-            <div className="row userInformation">
-                <div className="col-8">
+            <React.Fragment>
+                <header className="App-header">
+                    <Header></Header>
+                </header>
+                <div className="row userInformation">
+                    <div className="col-8">
 
-                    <h2>Restro de Usuarios</h2>
+                        <h2>Restro de Usuarios</h2>
 
-                    <form class="form-group">
+                        <form class="form-group">
 
-                        <label htmlFor="name" class="col-sm-2 col-form-label" >Nombre</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                name="name" 
-                                value={this.state.name} 
-                                onChange={this.handleOnChange}
-                                required
-                                />
-                        </div>
+                            <label htmlFor="name" class="col-sm-2 col-form-label" >Nombre</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="name" 
+                                    value={this.state.name} 
+                                    onChange={this.handleOnChange}
+                                    required
+                                    />
+                            </div>
 
-                        <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                name="lastname" 
-                                value={this.state.lastname}
-                                onChange={this.handleOnChange}
-                                required
-                                />
-                        </div>
+                            <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="lastname" 
+                                    value={this.state.lastname}
+                                    onChange={this.handleOnChange}
+                                    required
+                                    />
+                            </div>
 
-                        <label htmlFor="email" class="col-sm-2 col-form-label" >Email</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="email" 
-                                class="form-control" 
-                                name="email" 
-                                value={this.state.email}
-                                onChange={this.handleOnChange}
-                                required
-                                />
-                        </div>
+                            <label htmlFor="email" class="col-sm-2 col-form-label" >Email</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    name="email" 
+                                    value={this.state.email}
+                                    onChange={this.handleOnChange}
+                                    required
+                                    />
+                            </div>
 
-                        <label htmlFor="email" class="col-sm-2 col-form-label" >Contraseña</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="password" 
-                                class="form-control" 
-                                name="password" 
-                                value={this.state.password}
-                                onChange={this.handleOnChange}
-                                required
-                                />
-                        </div>
-                        <button className="btn btn-primary" type="submit" onClick={this.handleSaveUser}>Registrar</button>
-                    </form>
+                            <label htmlFor="email" class="col-sm-2 col-form-label" >Contraseña</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    name="password" 
+                                    value={this.state.password}
+                                    onChange={this.handleOnChange}
+                                    required
+                                    />
+                            </div>
+                            <button className="btn btn-primary" type="submit" onClick={this.handleSaveUser}>Registrar</button>
+                        </form>
 
+                    </div>
                 </div>
-            </div>
+                
+            </React.Fragment>
         );
     }
 }

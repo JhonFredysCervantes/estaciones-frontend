@@ -1,9 +1,11 @@
 import React from 'react';
 
+import Avatar from './avatar';
+
 import './css/header.css';
 
 
-class Header extends React.Component{
+class HeaderAvatar extends React.Component{
 
     render(){
         return(
@@ -22,6 +24,7 @@ class Header extends React.Component{
                                 </li>
                             </ul>
                         </div>
+                        <Avatar></Avatar>
                     </nav>
                 </div>
             </div>
@@ -29,4 +32,4 @@ class Header extends React.Component{
     }
 }
 
-export default Header;
+export default HeaderAvatar;

@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderAvatar from '../headerAvatar';
 
 import RequestUser from "./../../services/userService";
 
@@ -12,7 +13,6 @@ class EditUser extends React.Component{
         this.handleOnChange = this.handleOnChange.bind(this);
 
         this.state={
-            photo : "",
             id : props.id,
             email : props.email,
             name : props.username,
@@ -77,76 +77,82 @@ class EditUser extends React.Component{
 
     render(){
         return(
-            <div className="row userInformation">
-                <div className="col-6">
-                    <h2>Perfil</h2>
-                    <div className="userPhoto">
-                        <img src={this.photo} alt="User Photo"/>
+
+            <React.Fragment>
+                <header className="App-header">
+                    <HeaderAvatar></HeaderAvatar>
+                </header>
+            
+                <div className="row userInformation">
+                    <div className="col-6">
+
+                        <h2>Perfil</h2>
+
+                        <form class="form-group">
+
+                            <label htmlFor="name" class="col-sm-2 col-form-label" >Nombre</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="name" 
+                                    value={this.state.name}
+                                    onChange={this.handleOnChange}
+                                    disabled 
+                                    readonly/>
+                            </div>
+
+                            <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="lastname" 
+                                    value={this.state.lastname}
+                                    onChange={this.handleOnChange}
+                                    disabled 
+                                    readonly/>
+                            </div>
+
+                            <label htmlFor="email" class="col-sm-2 col-form-label" >Email</label>
+                            <div class="col-sm-10">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="email" 
+                                    value={this.state.email} 
+                                    onChange={this.handleOnChange}
+                                    disabled 
+                                    readonly/>
+                            </div>
+
+                            <button 
+                                type="button"
+                                id = "edit" 
+                                className="btn btn-success" 
+                                onClick={() => this.handleButtonEdit(true)}>
+                                Editar
+                            </button>
+                            <button 
+                                type="submit" 
+                                id = "save"
+                                className="btn btn-success"
+                                hidden>
+                                Guardar
+                            </button>
+                            <button 
+                                type="button" 
+                                id = "cancel"
+                                className="btn btn-danger"
+                                hidden>
+                                Cancelar
+                            </button>
+                        </form>
+
                     </div>
-
-                    <form class="form-group">
-
-                        <label htmlFor="name" class="col-sm-2 col-form-label" >Nombre</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                id="name" 
-                                value={this.state.name}
-                                onChange={this.handleOnChange}
-                                disabled 
-                                readonly/>
-                        </div>
-
-                        <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                id="lastname" 
-                                value={this.state.lastname}
-                                onChange={this.handleOnChange}
-                                disabled 
-                                readonly/>
-                        </div>
-
-                        <label htmlFor="email" class="col-sm-2 col-form-label" >Email</label>
-                        <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                id="email" 
-                                value={this.state.email} 
-                                onChange={this.handleOnChange}
-                                disabled 
-                                readonly/>
-                        </div>
-
-                        <button 
-                            type="button"
-                            id = "edit" 
-                            className="btn btn-success" 
-                            onClick={() => this.handleButtonEdit(true)}>
-                            Editar
-                        </button>
-                        <button 
-                            type="submit" 
-                            id = "save"
-                            className="btn btn-success"
-                            hidden>
-                            Guardar
-                        </button>
-                        <button 
-                            type="button" 
-                            id = "cancel"
-                            className="btn btn-danger"
-                            hidden>
-                            Cancelar
-                        </button>
-                    </form>
-
                 </div>
-            </div>
+
+            </React.Fragment>
         );
     }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../header';
 
 import './../css/login.css';
 
@@ -33,26 +34,33 @@ class Login extends React.Component{
 
     render(){
         return(
-            <div className="row body">
-                <div className="col-4 login">
-                    <form className="login">
-                        <div className="login_title"> <h4>Bienvenido a Monitoreo</h4> </div>
-                        <div className="form-group">
-                            <label >Email address</label>
-                            <input type="email" className="form-control" name="username" value={this.state.username} onChange={this.handleOnChange} aria-describedby="emailHelp" />
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleOnChange} />
-                        </div>
-                        
-                        <div className="options">
-                            <button type="submit" className="btn btn-primary">Ingresar</button>
-                            <div className="registrar"><a href="/registro">Registrarme</a></div>
-                        </div>
-                    </form>
+
+            <React.Fragment>
+                <header className="App-header">
+                    <Header></Header>
+                </header>
+
+                <div className="row body">
+                    <div className="col-4 login">
+                        <form className="login">
+                            <div className="login_title"> <h4>Bienvenido a Monitoreo</h4> </div>
+                            <div className="form-group">
+                                <label >Email address</label>
+                                <input type="email" className="form-control" name="username" value={this.state.username} onChange={this.handleOnChange} aria-describedby="emailHelp" />
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleOnChange} />
+                            </div>
+                            
+                            <div className="options">
+                                <button type="submit" className="btn btn-primary">Ingresar</button>
+                                <div className="registrar"><a href="/registro">Registrarme</a></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     };
 }

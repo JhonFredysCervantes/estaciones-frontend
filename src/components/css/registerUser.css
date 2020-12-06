@@ -1,11 +1,11 @@
 .userInformation{
     justify-content: center;
     justify-self: center;
+    margin-top: 2rem;
 }
 
 h2{
     display: block;
-    margin-top: 2rem;
     text-align: center;
 }
 
