@@ -1,6 +1,9 @@
 import React from 'react';
 
 import HeaderAvatar from './../headerAvatar';
+import RequestStation from './../../services/stationService';
+import RequestSample from './../../services/sampleService';
+import RequestPlot from './../../services/plotService';
 
 import './../css/ingreso.css';
 
@@ -10,22 +13,26 @@ class Ingreso extends React.Component{
 
         this.handleOnChange = this.handleOnChange.bind(this);
         this.fieldClear = this.fieldClear.bind(this);
+        this.plotFieldClear = this.plotFieldClear.bind(this);
         this.handleType = this.handleType.bind(this);
-        this.handlePlot = this.handlePlot.bind(this);
+        this.handleAddPlot = this.handleAddPlot.bind(this);
 
         this.state = {
             nombre : "",
             descripcion : "",
             region : "",
-            lat : undefined,
-            lon : undefined,
+            lat : '',
+            lon : '',
             unidad : "",
-
             tipo : '',
-            area : undefined,
-            lat_parcela : undefined,
-            lon_parcela : undefined,
+            area : '',
+
+            area_parcela : '',
+            lat_parcela : '',
+            lon_parcela : '',
             descripcion_parcela : "",
+
+            parcelas : []
         }
     }
 
@@ -54,14 +61,39 @@ class Ingreso extends React.Component{
             lon : this.state.lon_parcela,
             descripcion : this.state.descripcion_parcela
         };
+
+        
     }
 
-    handlePlot(){
+    handleAddPlot(){
 
-        var pArea = document.getElementById("pArea").value;
-        var pLat = document.getElementById("pLat").value;
-        var pLon = document.getElementById("pLon").value;
-        var pDescrip = document.getElementById("pDescrip").value;
+        if((this.state.area_parcela ==='') || 
+            (this.state.lat_parcela ==='') || (this.state.lon_parcela==='')){
+            alert("Error, uno de los capos necesarios de parcela está indefinido")
+        }else{
+            var parcela = {
+                latitud : this.state.lat_parcela,
+                longitud : this.state.lon_parcela,
+                area : this.state.area_parcela,
+                descripcion : this.state.descripcion_parcela
+            };
+
+            var obj = this.state.parcelas;
+            obj.push(parcela);
+
+            this.setState({
+                parcelas : obj
+            });
+
+            var fila = '<td class="table_col">'+parcela.latitud+'</td>';
+            fila += '<td class="table_col">'+parcela.longitud+'</td>';
+            fila += '<td class="table_col">'+parcela.area+'</td>';
+            fila += '<td class="table_col">'+parcela.descripcion+'</td>';
+            fila += '<td class="table_col"> <button type="button" class="btn btn-danger">Eliminar</button> </td>';
+
+            document.getElementById("composite_table").insertRow(-1).innerHTML=fila;
+            this.plotFieldClear();
+        }
 
     }
 
@@ -74,14 +106,21 @@ class Ingreso extends React.Component{
             nombre : "",
             descripcion : "",
             region : "",
-            lat : undefined,
-            lon : undefined,
+            lat : '',
+            lon : '',
             unidad : "",
-
             tipo : '',
-            area : undefined,
-            lat_parcela : undefined,
-            lon_parcela : undefined,
+            area : '',
+        });
+
+        this.plotFieldClear();
+    }
+
+    plotFieldClear(){
+        this.setState({
+            area_parcela : '',
+            lat_parcela : '',
+            lon_parcela : '',
             descripcion_parcela : ""
         });
     }
@@ -102,10 +141,24 @@ class Ingreso extends React.Component{
 
                                 <h4>Información General</h4>
                                 <label for="name">Nombre estaci&oacute;n</label>
-                                <input className="form-control" type="text" placeholder="Ingrese un nombre"></input>
+                                <input 
+                                    className="form-control" 
+                                    name="nombre"
+                                    type="text" 
+                                    placeholder="Ingrese un nombre"
+                                    value={this.state.nombre}
+                                    onChange={this.handleOnChange}
+                                    required>
+                                </input>
 
                                 <label>Descripción</label>
-                                <textarea className="textarea form-control" rows="3"></textarea>
+                                <textarea 
+                                    className="textarea form-control" 
+                                    name="descripcion"
+                                    rows="3"
+                                    value={this.state.descripcion}
+                                    onChange={this.handleOnChange}>
+                                </textarea>
 
                             </div>
 
@@ -113,20 +166,40 @@ class Ingreso extends React.Component{
                                 <h4>Informaci&oacute;n Espacial</h4>
 
                                 <label >Regi&oacute;n</label>
-                                <select className="form-control">
+                                <select className="form-control" name="region">
                                     <option>Regi&oacute;n Caribe</option>
                                     <option>Regi&oacute;n Insular</option>
                                     <option>Regi&oacute;n Pasifica</option>
                                 </select>
 
                                 <label >Latitud</label>
-                                <input className="form-control" type="number" step="any" min="0" placeholder="Lat"></input>
+                                <input 
+                                    className="form-control" 
+                                    name="lat"
+                                    type="number" 
+                                    step="any" 
+                                    min="0" 
+                                    placeholder="Lat"
+                                    value={this.state.lat}
+                                    onChange={this.handleOnChange}
+                                    required>
+                                </input>
 
                                 <label >Longitud</label>
-                                <input className="form-control" type="number" step="any" min="0" placeholder="Lon"></input>
+                                <input 
+                                    className="form-control" 
+                                    name="lon"
+                                    type="number" 
+                                    step="any" 
+                                    min="0" 
+                                    placeholder="Lon"
+                                    value={this.state.lon}
+                                    onChange={this.handleOnChange}
+                                    required>
+                                </input>
 
                                 <label >Unidad de manejo</label>
-                                <select className="form-control">
+                                <select className="form-control" name="unidad">
                                     <option>HFJC</option>
                                     <option>CKER</option>
                                     <option>DDUD</option>
@@ -137,7 +210,7 @@ class Ingreso extends React.Component{
                             <div className="form_group sampleInformation">
                                 <h4>Informaci&oacute;n Muestreo</h4>
 
-                                <fieldset className="form-group">
+                                <fieldset className="form-group" required>
                                     <div className="row">
                                         <legend className="col-form-label col-sm-2 pt-0">Radios</legend>
                                         <div className="col-sm-10">
@@ -161,7 +234,17 @@ class Ingreso extends React.Component{
 
                                 <div className="sample">
                                     <label >&Aacute;rea</label>
-                                    <input className="form-control" type="number" step="any" min="0" placeholder="En m^2"></input>
+                                    <input 
+                                        className="form-control" 
+                                        name="area"
+                                        type="number" 
+                                        step="any" 
+                                        min="0" 
+                                        placeholder="En m^2"
+                                        value={this.state.area}
+                                        onChange={this.handleOnChange}
+                                        required>
+                                    </input>
                                 </div>
 
                                 <div className="composite" id="composite" hidden={this.state.tipo==='C'?false:true} >
@@ -169,35 +252,75 @@ class Ingreso extends React.Component{
                                     <hr className="bar" />
 
                                     <label >&Aacute;rea</label>
-                                    <input className="form-control" id="pArea" type="number" step="any" min="1" placeholder="m^2"></input>
+                                    <input 
+                                        className="form-control" 
+                                        id="pArea"
+                                        name="area_parcela"
+                                        type="number" 
+                                        step="any" 
+                                        min="1" 
+                                        placeholder="m^2"
+                                        value={this.state.area_parcela}
+                                        onChange={this.handleOnChange}
+                                        required>
+                                    </input>
 
                                     <label >Latitud</label>
-                                    <input className="form-control" id="pLat" type="number" step="any" min="1" placeholder="Lat"></input>
+                                    <input 
+                                        className="form-control" 
+                                        id="pLat"
+                                        name="lat_parcela"
+                                        type="number" 
+                                        step="any" 
+                                        min="1" 
+                                        placeholder="Lat"
+                                        value={this.state.lat_parcela}
+                                        onChange={this.handleOnChange}
+                                        required>
+                                    </input>
 
                                     <label >Longitud</label>
-                                    <input className="form-control" id="pLon"type="number" step="any" min="1" placeholder="Lon"></input>
+                                    <input 
+                                        className="form-control" 
+                                        id="pLon" 
+                                        name="lon_parcela"
+                                        type="number" 
+                                        step="any" 
+                                        min="1" 
+                                        placeholder="Lon"
+                                        value={this.state.lon_parcela}
+                                        onChange={this.handleOnChange}
+                                        required>
+                                    </input>
 
                                     <label >Descripci&oacute;n</label>
-                                    <textarea className="textarea" id="pDescrip" rows="3"></textarea> 
+                                    <textarea 
+                                        className="textarea" 
+                                        id="pDescrip" 
+                                        rows="3"
+                                        name="descripcion_parcela"
+                                        value={this.state.descripcion_parcela}
+                                        onChange={this.handleOnChange}>
+                                    </textarea> 
 
-                                    <button type="button" className="btn btn-primary">Agregar</button>
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-primary"
+                                        onClick={this.handleAddPlot}
+                                        >Agregar
+                                    </button>
 
                                     <div className="div_table">
-                                        <table className="composite_table">
+                                        <table className="composite_table" id ="composite_table">
                                             <thead>
-                                                <th className="table_head">Lat</th>
-                                                <th className="table_head">Lon</th>
-                                                <th className="table_head">&Aacute;rea</th>
-                                                <th className="table_head">Descripci&oacute;n</th>
-                                                <th className="table_head">Opcion</th>
+                                                <th className="table_head" id="tLat">Lat</th>
+                                                <th className="table_head" id="tLon">Lon</th>
+                                                <th className="table_head" id="tArea">&Aacute;rea</th>
+                                                <th className="table_head" id="tDescripcion">Descripci&oacute;n</th>
+                                                <th className="table_head" id="tOpcion">Opcion</th>
                                             </thead>
 
                                             <tbody>
-                                                <td className="table_col"></td>
-                                                <td className="table_col"></td>
-                                                <td className="table_col"></td>
-                                                <td className="table_col"></td>
-                                                <td className="table_col"></td>
                                             </tbody>
                                         </table> 
                                     </div>                            

@@ -12,6 +12,7 @@ class EditUser extends React.Component{
         this.handleButtonEdit = this.handleButtonEdit.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
 
+        //pedir datos al servidor para colocarlos en el estado
         this.state={
             id : props.id,
             email : props.email,
@@ -19,6 +20,12 @@ class EditUser extends React.Component{
             lastname : props.userlastname,
             password : props.password
         };
+
+    }
+
+    componentDidMount(){ // metodo que se ejecuta inmediatamente despues de ejecutarse render
+        // aqui se pueden pedir solicitudes remotas para ingresar información al dom
+
     }
 
     handleButtonEdit(edit){
