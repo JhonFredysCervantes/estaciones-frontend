@@ -58,6 +58,12 @@ class Ingreso extends React.Component{
             tipo : this.state.tipo,
             area : this.state.area,
         };
+
+        var allPlots = this.state.parcelas;
+
+        if(this.state.tipo==='C'){
+
+        }
         
     }
 
@@ -65,7 +71,7 @@ class Ingreso extends React.Component{
 
         if((this.state.area_parcela ==='') || 
             (this.state.lat_parcela ==='') || (this.state.lon_parcela==='')){
-            alert("Error, uno o varios de los capos necesarios de parcela está indefinido")
+            alert("Existen campos vacios");
         }else{
             var parcela = {
                 latitud : this.state.lat_parcela,
@@ -74,36 +80,37 @@ class Ingreso extends React.Component{
                 descripcion : this.state.descripcion_parcela
             };
 
-            var obj = this.state.parcelas;
-            obj.push(parcela);
+            var objeto = this.state.parcelas;
+            objeto.push(parcela);
 
             this.setState({
-                parcelas : obj
+                parcelas : objeto
             });
-
-            var fila = '<td class="table_col">'+parcela.latitud+'</td>';
-            fila += '<td class="table_col">'+parcela.longitud+'</td>';
-            fila += '<td class="table_col">'+parcela.area+'</td>';
-            fila += '<td class="table_col">'+parcela.descripcion+'</td>';
-            fila += '<td class="table_col"> <button type="button" id="'+this.state.nParcelas+"b"
-                    +'" class="btn btn-danger">Eliminar</button> </td>';
-
-            document.getElementById("composite_table").insertRow(-1).innerHTML=fila;
-            document.getElementById("id_tbody").lastChild.id=this.state.nParcelas;
-            //document.getElementById(this.state.nParcelas+"b").onClick=this.handleDeletePlot();
-
-            this.setState({
-                nParcelas : this.state.nParcelas + 1
-            });
-
 
             this.plotFieldClear();
         }
 
     }
 
-    handleDeletePlot(){
-        alert("se presionó")
+
+    handleDeletePlot(e){
+        var obj = this.state.parcelas;
+
+        var op = window.confirm("¿Estás seguro de eliminar esta parcela?");
+
+        if(op){
+            var contador = 0;
+            obj.map((r)=>{
+                if((r.latitud===e.latitud)&&(r.longitud===e.longitud)&&(r.area===e.area)&&(r.descripcion===e.descripcion)){
+                    obj.splice(contador,1);
+                }
+                contador++;
+            });
+            
+            this.setState({
+                parcelas : obj
+            });
+        }
     }
 
     handleType(e){
@@ -330,6 +337,23 @@ class Ingreso extends React.Component{
                                             </thead>
 
                                             <tbody id="id_tbody">
+                                                {this.state.parcelas.map((element)=>(
+                                                    <tr>
+                                                        <td className="table_col">{element.latitud}</td>
+                                                        <td className="table_col">{element.longitud}</td>
+                                                        <td className="table_col">{element.area}</td>
+                                                        <td className="table_col">{element.descripcion}</td>
+                                                        <td className="table_col">
+                                                            <button 
+                                                                type="button"
+                                                                className="btn btn-danger" 
+                                                                onClick={()=>this.handleDeletePlot(element)}>
+                                                                Eliminar
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                                
                                             </tbody>
                                         </table> 
                                     </div>                            
