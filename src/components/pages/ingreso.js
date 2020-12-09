@@ -61,8 +61,23 @@ class Ingreso extends React.Component{
 
         var allPlots = this.state.parcelas;
 
-        if(this.state.tipo==='C'){
+        var savedStation;
+        var savedType;
+        var acum=0;
 
+        RequestStation.createStation(station).then(savedStation);
+        console.log(savedStation);
+        sample.estacion = savedStation;
+        savedType = RequestSample.createSample(sample);
+
+        if(this.state.tipo==='C'){
+            allPlots.map((e)=>{
+                e.muestreo = savedType;
+                RequestPlot.createPlot(e);
+                acum+=e.area;
+            });
+            savedType.area = acum;
+            RequestSample.updateSample(savedType,savedType.id);
         }
         
     }
@@ -183,9 +198,9 @@ class Ingreso extends React.Component{
 
                                 <label >Regi&oacute;n</label>
                                 <select className="form-control" name="region">
-                                    <option>Regi&oacute;n Caribe</option>
-                                    <option>Regi&oacute;n Insular</option>
-                                    <option>Regi&oacute;n Pasifica</option>
+                                    <option value="Region Caribe">Regi&oacute;n Caribe</option>
+                                    <option value="Region Insular">Regi&oacute;n Insular</option>
+                                    <option value="Region Pacifica">Regi&oacute;n Pacifica</option>
                                 </select>
 
                                 <label >Latitud</label>
@@ -216,9 +231,9 @@ class Ingreso extends React.Component{
 
                                 <label >Unidad de manejo</label>
                                 <select className="form-control" name="unidad">
-                                    <option>HFJC</option>
-                                    <option>CKER</option>
-                                    <option>DDUD</option>
+                                    <option value="Unidad Nitro">UNIDAD NITRO</option>
+                                    <option value="Unidad Turbo">UNIDAD TURBO</option>
+                                    <option value="Unidad Motor">UNIDAD MOTOR</option>
                                 </select>
 
                             </div>
@@ -362,7 +377,7 @@ class Ingreso extends React.Component{
 
                             </div>
 
-                            <button type="submit" className="btn btn-success">Guardar</button>
+                            <button type="submit" className="btn btn-success" onClick={this.handleSave}>Guardar</button>
                             <button type="reset" className="btn btn-danger" onClick={this.fieldClear}>Limpiar</button>
 
                         </form>
