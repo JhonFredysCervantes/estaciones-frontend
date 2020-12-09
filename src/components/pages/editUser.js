@@ -11,6 +11,7 @@ class EditUser extends React.Component{
 
         this.handleButtonEdit = this.handleButtonEdit.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleEditUser = this.handleEditUser.bind(this);
 
         //pedir datos al servidor para colocarlos en el estado
         this.state={
@@ -151,6 +152,7 @@ class EditUser extends React.Component{
                                 type="button" 
                                 id = "cancel"
                                 className="btn btn-danger"
+                                onClick={() => this.handleButtonEdit(false)}
                                 hidden>
                                 Cancelar
                             </button>

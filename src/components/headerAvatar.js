@@ -12,7 +12,7 @@ class HeaderAvatar extends React.Component{
             <div className="row">
                 <div className="col-12">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href="/mapa">Monitoreo</a>
+                        <a className="navbar-brand" href="/">Monitoreo</a>
 
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav">
