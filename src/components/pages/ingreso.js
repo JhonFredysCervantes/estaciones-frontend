@@ -66,25 +66,41 @@ class Ingreso extends React.Component{
         var acum=0;
 
         RequestStation.createStation(station).then(response=>(
-            savedStation.id = response.data.id,
+            /*savedStation.id = response.data.id,
             savedStation.nombre = response.data.nombre,
             savedStation.descripcion = response.data.descripcion,
             savedStation.region = response.data.region,
             savedStation.unidad = response.data.unidad,
             savedStation.latitud = response.data.latitud,
-            savedStation.longitud = response.data.longitud
+            savedStation.longitud = response.data.longitud*/
+            sample.estacion = {id:response.data.id},
+
+            RequestSample.createSample(sample).then((response_)=>{
+                if(sample.tipo==='C'){
+                    allPlots.map((e)=>(
+                        e.muestreo = {id: response_.data.id},
+                        RequestPlot.createPlot(e).then(),
+                        acum+=e.area
+                    ));
+                    RequestSample.getSample(response_.data.id).then((response_s)=>(
+                        savedType = response_s.data,
+                        savedType.area = acum,
+                        RequestSample.updateSample(savedType,savedType.id)
+                    ));
+                }
+            })
         ));
 
-        sample.estacion = {id:savedStation.id};
+        /*sample.estacion = {id:savedStation.id};
 
         RequestSample.createSample(sample).then(response=>(
             savedType.id = response.data.id,
             savedType.tipo = response.data.tipo,
             savedType.area = response.data.area,
             savedType.estacion = response.data.estacion
-        ));
+        ));*/
 
-        if(sample.tipo==='C'){
+        /*if(sample.tipo==='C'){
             allPlots.map((e)=>(
                 e.muestreo = {id: savedType.id},
                 RequestPlot.createPlot(e),
@@ -93,7 +109,7 @@ class Ingreso extends React.Component{
             savedType = RequestSample.getSample(savedType.id);
             savedType.area = acum;
             RequestSample.updateSample(savedType,savedType.id);
-        }
+        }*/
         
     }
 
