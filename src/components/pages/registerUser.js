@@ -37,13 +37,13 @@ class RegisterUser extends React.Component{
         if(this.state.password.length<=1){
             alert("Lo sentimos, la contraseña debe tener por lo menos 2 caracteres");
         }else{
-            RequestUser.createUser(user).then(response =>{
+            RequestUser.createUser(user).then(response =>(
                 this.setState({
-                    name : this.response.primerNombre,
-                    lastname : this.response.primerApellido,
-                    email : this.response.email
-                });
-            }).catch(e =>{
+                    name : response.data.primerNombre,
+                    lastname : response.data.primerApellido,
+                    email : response.data.email
+                })
+            )).catch(e =>{
                 console.log(e);
             });
         }
