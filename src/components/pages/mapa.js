@@ -1,5 +1,6 @@
 import React from 'react';
 import {Marker, TileLayer, Popup, MapContainer} from 'react-leaflet';
+import RequestPlot from './../../services/plotService';
 
 import HeaderAvatar from './../headerAvatar';
 
@@ -11,8 +12,16 @@ class Mapa extends React.Component{
         super(props);
 
         this.state = {
-            prop : "values"
+            plots : []
         }
+    }
+
+    componentDidMount(){ 
+        RequestPlot.getPlots().then((response)=>(
+            this.setState({
+                plots : response.data
+            }) 
+        ))
     }
     
     render(){
@@ -30,11 +39,15 @@ class Mapa extends React.Component{
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[51.505, -0.09]}>
-                            <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                            </Popup>
-                        </Marker>
+                        {
+                            this.state.plots.map((e)=>(
+                                <Marker key={e.id} position={[e.latitud, e.longitud]}>
+                                    <Popup>
+                                        {e.descripcion}. <br /> Lat: {e.latitud} - Lon: {e.longitud}
+                                    </Popup>
+                                </Marker>
+                            ))
+                        }
                     </MapContainer>
                 </div>
             </React.Fragment>
