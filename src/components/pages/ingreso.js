@@ -61,55 +61,29 @@ class Ingreso extends React.Component{
 
         var allPlots = this.state.parcelas;
 
-        var savedStation = {};
-        var savedType = {};
-        var acum=0;
+        var acum= Number.parseFloat(0);
 
-        RequestStation.createStation(station).then(response=>(
-            /*savedStation.id = response.data.id,
-            savedStation.nombre = response.data.nombre,
-            savedStation.descripcion = response.data.descripcion,
-            savedStation.region = response.data.region,
-            savedStation.unidad = response.data.unidad,
-            savedStation.latitud = response.data.latitud,
-            savedStation.longitud = response.data.longitud*/
-            sample.estacion = {id:response.data.id},
+        RequestStation.createStation(station).then(response=>{
+
+            sample.estacion = {id:response.data.id};
+
+            if(sample.tipo==='C'){
+                allPlots.map((e)=>(
+                    acum+=Number.parseFloat(e.area)
+                ));
+                sample.area = acum;
+            }
 
             RequestSample.createSample(sample).then((response_)=>{
+
                 if(sample.tipo==='C'){
                     allPlots.map((e)=>(
                         e.muestreo = {id: response_.data.id},
-                        RequestPlot.createPlot(e).then(),
-                        acum+=e.area
-                    ));
-                    RequestSample.getSample(response_.data.id).then((response_s)=>(
-                        savedType = response_s.data,
-                        savedType.area = acum,
-                        RequestSample.updateSample(savedType,savedType.id)
+                        RequestPlot.createPlot(e).then()
                     ));
                 }
             })
-        ));
-
-        /*sample.estacion = {id:savedStation.id};
-
-        RequestSample.createSample(sample).then(response=>(
-            savedType.id = response.data.id,
-            savedType.tipo = response.data.tipo,
-            savedType.area = response.data.area,
-            savedType.estacion = response.data.estacion
-        ));*/
-
-        /*if(sample.tipo==='C'){
-            allPlots.map((e)=>(
-                e.muestreo = {id: savedType.id},
-                RequestPlot.createPlot(e),
-                acum+=e.area
-            ));
-            savedType = RequestSample.getSample(savedType.id);
-            savedType.area = acum;
-            RequestSample.updateSample(savedType,savedType.id);
-        }*/
+        });
         
     }
 
