@@ -36,7 +36,7 @@ class Ingreso extends React.Component{
 
             parcelas : [],
 
-            nParcelas : 0
+            nParcelas : 0,
         }
     }
 
@@ -49,8 +49,8 @@ class Ingreso extends React.Component{
             nombre : this.state.nombre ,
             descripcion : this.state.descripcion,
             region : this.state.region,
-            lat : this.state.lat,
-            lon : this.state.lon,
+            latitud : this.state.lat,
+            longitud : this.state.lon,
             unidad : this.state.unidad
         };
 
@@ -61,21 +61,36 @@ class Ingreso extends React.Component{
 
         var allPlots = this.state.parcelas;
 
-        var savedStation;
-        var savedType;
+        var savedStation = {};
+        var savedType = {};
         var acum=0;
 
-        RequestStation.createStation(station).then(savedStation);
-        console.log(savedStation);
-        sample.estacion = savedStation;
-        savedType = RequestSample.createSample(sample);
+        RequestStation.createStation(station).then(response=>(
+            savedStation.id = response.data.id,
+            savedStation.nombre = response.data.nombre,
+            savedStation.descripcion = response.data.descripcion,
+            savedStation.region = response.data.region,
+            savedStation.unidad = response.data.unidad,
+            savedStation.latitud = response.data.latitud,
+            savedStation.longitud = response.data.longitud
+        ));
 
-        if(this.state.tipo==='C'){
-            allPlots.map((e)=>{
-                e.muestreo = savedType;
-                RequestPlot.createPlot(e);
-                acum+=e.area;
-            });
+        sample.estacion = {id:savedStation.id};
+
+        RequestSample.createSample(sample).then(response=>(
+            savedType.id = response.data.id,
+            savedType.tipo = response.data.tipo,
+            savedType.area = response.data.area,
+            savedType.estacion = response.data.estacion
+        ));
+
+        if(sample.tipo==='C'){
+            allPlots.map((e)=>(
+                e.muestreo = {id: savedType.id},
+                RequestPlot.createPlot(e),
+                acum+=e.area
+            ));
+            savedType = RequestSample.getSample(savedType.id);
             savedType.area = acum;
             RequestSample.updateSample(savedType,savedType.id);
         }
@@ -142,6 +157,7 @@ class Ingreso extends React.Component{
             unidad : "",
             tipo : '',
             area : '',
+            parcelas : []
         });
 
         this.plotFieldClear();
@@ -197,7 +213,12 @@ class Ingreso extends React.Component{
                                 <h4>Informaci&oacute;n Espacial</h4>
 
                                 <label >Regi&oacute;n</label>
-                                <select className="form-control" name="region">
+                                <select 
+                                        className="form-control" 
+                                        name="region"
+                                        value={this.state.region}
+                                        onChange={this.handleOnChange}>
+                                    <option value="" selected>-</option>
                                     <option value="Region Caribe">Regi&oacute;n Caribe</option>
                                     <option value="Region Insular">Regi&oacute;n Insular</option>
                                     <option value="Region Pacifica">Regi&oacute;n Pacifica</option>
@@ -230,7 +251,12 @@ class Ingreso extends React.Component{
                                 </input>
 
                                 <label >Unidad de manejo</label>
-                                <select className="form-control" name="unidad">
+                                <select 
+                                        className="form-control" 
+                                        name="unidad" 
+                                        value={this.state.unidad}
+                                        onChange={this.handleOnChange}>
+                                    <option value="" selected>-</option>
                                     <option value="Unidad Nitro">UNIDAD NITRO</option>
                                     <option value="Unidad Turbo">UNIDAD TURBO</option>
                                     <option value="Unidad Motor">UNIDAD MOTOR</option>
@@ -293,7 +319,7 @@ class Ingreso extends React.Component{
                                         placeholder="m^2"
                                         value={this.state.area_parcela}
                                         onChange={this.handleOnChange}
-                                        required>
+                                        >
                                     </input>
 
                                     <label >Latitud</label>
@@ -307,7 +333,7 @@ class Ingreso extends React.Component{
                                         placeholder="Lat"
                                         value={this.state.lat_parcela}
                                         onChange={this.handleOnChange}
-                                        required>
+                                        >
                                     </input>
 
                                     <label >Longitud</label>
@@ -321,7 +347,7 @@ class Ingreso extends React.Component{
                                         placeholder="Lon"
                                         value={this.state.lon_parcela}
                                         onChange={this.handleOnChange}
-                                        required>
+                                        >
                                     </input>
 
                                     <label >Descripci&oacute;n</label>
