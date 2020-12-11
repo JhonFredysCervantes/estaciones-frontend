@@ -1,6 +1,7 @@
 import React from 'react';
-import HeaderAvatar from '../headerAvatar';
 
+import Header from './../header';
+import Avatar from './../avatar';
 import RequestUser from "./../../services/userService";
 
 import './../css/edituser.css';
@@ -13,7 +14,6 @@ class EditUser extends React.Component{
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleEditUser = this.handleEditUser.bind(this);
 
-        //pedir datos al servidor para colocarlos en el estado
         this.state={
             id : props.id,
             email : props.email,
@@ -88,7 +88,7 @@ class EditUser extends React.Component{
 
             <React.Fragment>
                 <header className="App-header">
-                    <HeaderAvatar></HeaderAvatar>
+                    <Header avatar={Avatar}/>
                 </header>
             
                 <div className="row userInformation">

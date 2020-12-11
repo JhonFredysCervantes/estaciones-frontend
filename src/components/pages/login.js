@@ -37,7 +37,7 @@ class Login extends React.Component{
 
             <React.Fragment>
                 <header className="App-header">
-                    <Header></Header>
+                    <Header />
                 </header>
 
                 <div className="row body">

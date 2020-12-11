@@ -53,7 +53,7 @@ class RegisterUser extends React.Component{
         return(
             <React.Fragment>
                 <header className="App-header">
-                    <Header></Header>
+                    <Header />
                 </header>
                 <div className="row userInformation">
                     <div className="col-8">

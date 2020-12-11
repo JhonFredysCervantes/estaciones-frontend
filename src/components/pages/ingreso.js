@@ -1,6 +1,7 @@
 import React from 'react';
 
-import HeaderAvatar from './../headerAvatar';
+import Header from './../header';
+import Avatar from './../avatar';
 import RequestStation from './../../services/stationService';
 import RequestSample from './../../services/sampleService';
 import RequestPlot from './../../services/plotService';
@@ -167,7 +168,7 @@ class Ingreso extends React.Component{
             <React.Fragment>
 
                 <header className="App-header">
-                        <HeaderAvatar></HeaderAvatar>
+                    <Header avatar={Avatar}/>
                 </header>
 
                 <div className="row formRow">

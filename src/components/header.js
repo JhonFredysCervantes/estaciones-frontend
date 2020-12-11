@@ -23,6 +23,7 @@ class Header extends React.Component{
                                 </li>
                             </ul>
                         </div>
+                        {this.props.avatar!=null?<this.props.avatar/>:''}
                     </nav>
                 </div>
             </div>

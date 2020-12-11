@@ -2,7 +2,8 @@ import React from 'react';
 import {Marker, TileLayer, Popup, MapContainer} from 'react-leaflet';
 import RequestPlot from './../../services/plotService';
 
-import HeaderAvatar from './../headerAvatar';
+import Avatar from '../avatar';
+import Header from '../header';
 
 import './../css/mapa.css';
 
@@ -30,7 +31,7 @@ class Mapa extends React.Component{
             <React.Fragment>
 
                 <header className="App-header">
-                    <HeaderAvatar></HeaderAvatar>
+                    <Header avatar={Avatar}/>
                 </header>
 
                 <div className="leaflet-container">
