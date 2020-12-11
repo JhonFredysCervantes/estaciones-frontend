@@ -96,42 +96,39 @@ class EditUser extends React.Component{
 
                         <h2>Perfil</h2>
 
-                        <form class="form-group">
+                        <form className="form-group">
 
-                            <label htmlFor="name" class="col-sm-2 col-form-label" >Nombre</label>
-                            <div class="col-sm-10">
+                            <label htmlFor="name" className="col-sm-2 col-form-label" >Nombre</label>
+                            <div className="col-sm-10">
                                 <input 
                                     type="text" 
-                                    class="form-control" 
+                                    className="form-control" 
                                     id="name" 
                                     value={this.state.name}
                                     onChange={this.handleOnChange}
-                                    disabled 
-                                    readonly/>
+                                    disabled />
                             </div>
 
-                            <label htmlFor="lastname" class="col-sm-2 col-form-label" >Apellido</label>
-                            <div class="col-sm-10">
+                            <label htmlFor="lastname" className="col-sm-2 col-form-label" >Apellido</label>
+                            <div className="col-sm-10">
                                 <input 
                                     type="text" 
-                                    class="form-control" 
+                                    className="form-control" 
                                     id="lastname" 
                                     value={this.state.lastname}
                                     onChange={this.handleOnChange}
-                                    disabled 
-                                    readonly/>
+                                    disabled />
                             </div>
 
-                            <label htmlFor="email" class="col-sm-2 col-form-label" >Email</label>
-                            <div class="col-sm-10">
+                            <label htmlFor="email" className="col-sm-2 col-form-label" >Email</label>
+                            <div className="col-sm-10">
                                 <input 
                                     type="text" 
-                                    class="form-control" 
+                                    className="form-control" 
                                     id="email" 
                                     value={this.state.email} 
                                     onChange={this.handleOnChange}
-                                    disabled 
-                                    readonly/>
+                                    disabled/>
                             </div>
 
                             <button 
