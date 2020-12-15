@@ -85,7 +85,9 @@ class Ingreso extends React.Component{
                 }
             })
         });
-        
+
+        alert("Success")
+        this.fieldClear();
     }
 
     handleAddPlot(){

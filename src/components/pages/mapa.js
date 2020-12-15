@@ -1,6 +1,6 @@
 import React from 'react';
-import {Marker, TileLayer, Popup, MapContainer} from 'react-leaflet';
-import RequestPlot from './../../services/plotService';
+import {Marker, TileLayer, Popup, MapContainer, Tooltip} from 'react-leaflet';
+import RequestStation from './../../services/stationService';
 
 import Avatar from '../avatar';
 import Header from '../header';
@@ -13,15 +13,15 @@ class Mapa extends React.Component{
         super(props);
 
         this.state = {
-            plots : []
+            stations : [],
         }
     }
 
     componentDidMount(){ 
-        RequestPlot.getPlots().then((response)=>(
+        RequestStation.getStations().then((response_)=>(
             this.setState({
-                plots : response.data
-            }) 
+                stations : response_.data
+            })
         ))
     }
     
@@ -35,16 +35,35 @@ class Mapa extends React.Component{
                 </header>
 
                 <div className="leaflet-container">
-                    <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+                    <MapContainer center={[51.505, -0.09]} zoom={5} scrollWheelZoom={false}>
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
                         {
-                            this.state.plots.map((e)=>(
+                            this.state.stations.map((e)=>(
+                                e.muestreo.parcelas.map((p)=>(
+                                    <Marker key={p.id} position={[p.latitud, p.longitud]}>
+                                    <Tooltip direction="center" opacity={2}>Parcela</Tooltip>
+                                        <Popup>
+                                            ----PARCELA---- <br/>
+                                            Pertenece a: {e.nombre} <br/> 
+                                            {p.descripcion}. <br /> 
+                                            Lat: {p.latitud} - Lon: {p.longitud}
+                                        </Popup>
+                                    </Marker>
+                                ))
+                            ))
+                        }
+                        {
+                            this.state.stations.map((e)=>(
                                 <Marker key={e.id} position={[e.latitud, e.longitud]}>
+                                    <Tooltip direction="center" opacity={2}>Estacion</Tooltip>
                                     <Popup>
-                                        {e.descripcion}. <br /> Lat: {e.latitud} - Lon: {e.longitud}
+                                        ----ESTACIÖN---- <br />
+                                        Nombre : {e.nombre}<br />
+                                        {e.descripcion}. <br /> 
+                                        Lat: {e.latitud} - Lon: {e.longitud}
                                     </Popup>
                                 </Marker>
                             ))

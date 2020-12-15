@@ -26,7 +26,11 @@ class EditUser extends React.Component{
 
     componentDidMount(){ // metodo que se ejecuta inmediatamente despues de ejecutarse render
         // aqui se pueden pedir solicitudes remotas para ingresar información al dom
+    }
 
+    componentWillUnmount() {// metodo que se ejecuta una vez de desmonte el componente
+        // aqui se pueden liberar recursos
+        // delete this.state;
     }
 
     handleButtonEdit(edit){
